@@ -84,7 +84,7 @@ while True:
     word = GetWordFromImage(TakeScreenShot())
     if word != None:
         print(word)
-        if word == "NULL" or word == "END":
+        if word == "NULL" or word == "END" or word == "":
             print("NULL word found, skipping")
         else:
             TypeWord(word)
