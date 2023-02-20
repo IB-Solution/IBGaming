@@ -5,7 +5,13 @@ from PIL import Image
 from dataclasses import dataclass
 import numpy as np
 
-CMD_POS = (612, 835)
+"""
+    Code pour le jeu S0urceIO
+    By: ProfesseurIssou
+"""
+
+NULL_POS = pyautogui.locateOnScreen("images/NULL.png")
+CMD_POS = (NULL_POS.left, NULL_POS.top)
 CMD_SIZE = (400, 30)
 
 @dataclass
@@ -29,6 +35,7 @@ def TakeScreenShot() -> np.ndarray:
 def GetWordList() -> list[Word]:
     # lecture des fichiers du dossier images, le nom du fichier est le mot et l'image est un npz
     for file in os.listdir("images"):
+        if file.endswith(".png"): continue
         word = Word()
         word.word = file.split(".")[0]
         word.image = np.load("images/" + file)
@@ -63,15 +70,15 @@ def SaveWord(word: str, image: np.ndarray):
 
 
 print("S0urceIO.py setup")
-DisplayArea()
-while True:
-    print("Check cmd area, please move the green square at the cursor position")
-    pyautogui.moveTo(CMD_POS[0], CMD_POS[1])
-    confirm = input("Good ? (y/n) ")
-    if confirm == "y":
-        break
-    else:
-        print("Reset mouse position")
+# DisplayArea()
+# while True:
+#     print("Check cmd area, please move the green square at the cursor position")
+#     pyautogui.moveTo(CMD_POS[0], CMD_POS[1])
+#     confirm = input("Good ? (y/n) ")
+#     if confirm == "y":
+#         break
+#     else:
+#         print("Reset mouse position")
 
 print("Setup word list")
 wordList = GetWordList()
