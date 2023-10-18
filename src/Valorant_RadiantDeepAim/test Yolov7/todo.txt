@@ -1,0 +1,35 @@
+install cuda 11.8
+install 
+
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+git clone https://github.com/WongKinYiu/yolov7
+cd yolov7
+py -m pip install -r requirements.txt
+
+créer un dossier dans le dossier yolov7 pour la dataset
+90% des images servirons a l'entrainement, les 10% restants serons la pour la validation
+Pour cela on vas faire une arborésence
+DATASETFOLDER:.
+ ## └── train
+ ####└── images (folder including all training images)
+ ####└── labels (folder including all training labels)
+ ## └── test
+ ####└── images (folder including all testing images)
+ ####└── labels (folder including all testing labels)
+
+
+télécharger le model pré entrainer
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjiscT2gsD_AhU7TqQEHU8PDtgQFnoECBcQAQ&url=https%3A%2F%2Fgithub.com%2FWongKinYiu%2Fyolov7%2Freleases%2Fdownload%2Fv0.1%2Fyolov7_training.pt&usg=AOvVaw1zFZzxBdjEXx2p5FOYcWXa
+
+
+en cas d'erreur dll
+py -m pip install pefile
+py fixNvPe.py --input D:\Windows\Roaming\Python\Python39\site-packages\torch\lib\*.dll
+
+
+training:
+py train.py --img-size 640 --cfg cfg/training/yolov7.yaml --hyp data/hyp.scratch.custom.yaml --batch 2 --epochs 100 --data valorant/ready_data.yaml --weights yolov7_training.pt --workers 2 --name yolo_valorant
+
+
+py detect.py --source Road_Sign_Dataset/images/test/ --weights runs/train/yolo_road_det5/weights/best.pt --conf 0.25 --name yolo_road_det
